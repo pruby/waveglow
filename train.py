@@ -58,6 +58,8 @@ def save_checkpoint(model, optimizer, learning_rate, iteration, filepath):
                 'iteration': iteration,
                 'optimizer': optimizer.state_dict(),
                 'learning_rate': learning_rate}, filepath)
+    if data_config['checkpoint_store_command']:
+        os.system(data_config['checkpoint_store_command'].format(filepath))
 
 def train(num_gpus, rank, group_name, output_directory, epochs, learning_rate,
           sigma, iters_per_checkpoint, batch_size, seed, fp16_run,
